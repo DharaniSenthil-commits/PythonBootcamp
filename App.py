@@ -223,3 +223,166 @@ print(translate(input("Enter the Phrase : ")))
 
 
 #comment --> hash to comment the code short description
+
+#Function
+
+def fib(n):    # write Fibonacci series up to n
+    """Print a Fibonacci series up to n."""
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
+
+# Now call the function we just defined:
+fib(2000)
+
+#Function with return
+
+def fib2(n):  # return Fibonacci series up to n
+    """Return a list containing the Fibonacci series up to n."""
+    result = []
+    a, b = 0, 1
+    while a < n:
+        result.append(a)    # see below
+        a, b = b, a+b
+    return result
+
+f100 = fib2(100)    # call it
+print(f100)              # write the result
+
+
+#Default Argument
+def ask_ok(prompt, retries=4, reminder='Please try again!'):
+    while True:
+        ok = input(prompt)
+        if ok in ('y', 'ye', 'yes'):
+            return True
+        if ok in ('n', 'no', 'nop', 'nope'):
+            return False
+        retries = retries - 1
+        if retries < 0:
+            raise ValueError('invalid user response')
+        print(reminder)
+
+ask_ok('Do you really want to quit?')
+
+#Keyword argument
+
+def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
+    print("-- This parrot wouldn't", action, end=' ')
+    print("if you put", voltage, "volts through it.")
+    print("-- Lovely plumage, the", type)
+    print("-- It's", state, "!")
+
+parrot(1000)                                          # 1 positional argument
+parrot(voltage=1000)                                  # 1 keyword argument
+parrot(voltage=1000000, action='VOOOOOM')             # 2 keyword arguments
+parrot(action='VOOOOOM', voltage=1000000)             # 2 keyword arguments
+parrot('a million', 'bereft of life', 'jump')         # 3 positional arguments
+parrot('a thousand', state='pushing up the daisies')  # 1 positional, 1 keyword
+
+# keyword argument and positional arguments
+
+def cheeseshop(kind, *arguments, **keywords):
+    print("-- Do you have any", kind, "?")
+    print("-- I'm sorry, we're all out of", kind)
+    for arg in arguments:
+        print(arg)
+    print("-" * 40)
+    for kw in keywords:
+        print(kw, ":", keywords[kw])
+
+cheeseshop("Limburger", "It's very runny, sir.",
+           "It's really very, VERY runny, sir.",
+           shopkeeper="Michael Palin",
+           client="John Cleese",
+           sketch="Cheese Shop Sketch")
+
+
+#special arguments
+'''
+def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):
+      -----------    ----------     ----------
+        |             |                  |
+        |        Positional or keyword   |
+        |                                - Keyword only
+         -- Positional only
+'''
+
+
+def standard_arg(arg):
+    print(arg)
+
+def pos_only_arg(arg, /):
+    print(arg)
+
+def kwd_only_arg(*, arg):
+    print(arg)
+
+def combined_example(pos_only, /, standard, *, kwd_only):
+    print(pos_only, standard, kwd_only)
+
+pos_only_arg(1)
+kwd_only_arg(arg=3)
+combined_example(1, 2, kwd_only=3)
+combined_example(1, standard=2, kwd_only=3)
+
+#Arbitary argument list
+
+def write_multiple_items(file, separator, *args):
+    file.write(separator.join(args))
+
+def concat(*args, sep="/"):
+    return sep.join(args)
+
+concat("earth", "mars", "venus")
+
+concat("earth", "mars", "venus", sep=".")
+
+#unpacking arguments
+
+list(range(3, 6))            # normal call with separate arguments
+args = [3, 6]
+list(range(*args))
+
+def parrot(voltage, state='a stiff', action='voom'):
+    print("-- This parrot wouldn't", action, end=' ')
+    print("if you put", voltage, "volts through it.", end=' ')
+    print("E's", state, "!")
+
+d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"}
+parrot(**d)
+
+#Lambda function
+def make_incrementor(n):
+    return lambda x: x + n
+
+f = make_incrementor(42)
+f(0)
+
+f(1)
+
+
+pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+pairs.sort(key=lambda pair: pair[1])
+print(pairs)
+
+#DocString
+
+def my_function():
+    """Do nothing, but document it.
+
+    No, really, it doesn't do anything.
+    """
+    pass
+
+print(my_function.__doc__)
+
+#Function Annotations
+def f(ham: str, eggs: str = 'eggs') -> str:
+    print("Annotations:", f.__annotations__)
+    print("Arguments:", ham, eggs)
+    return ham + ' and ' + eggs
+
+f('spam')
