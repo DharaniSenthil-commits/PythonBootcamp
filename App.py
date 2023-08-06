@@ -386,3 +386,83 @@ def f(ham: str, eggs: str = 'eggs') -> str:
     return ham + ' and ' + eggs
 
 f('spam')
+
+
+#try and except
+
+try :
+    answer=10/0
+    number=int(input("Enter a number "))
+    print(number)
+except ZeroDivisionError as err :
+    print(err)
+except ValueError as err :
+    print(err)
+
+
+#Reading file
+# r - read, w - write , a - append , r+ - read and write
+
+readfile=open('readfile.txt','r')
+
+print(readfile.readable()) # return whether true or false , if r or not
+
+print(readfile.read()) # display whole file
+
+print(readfile.readline()) # will display 1st  line
+print(readfile.readline()) # will display 2nd  line
+print(readfile.readline()) # will display 3rd  line
+
+print(readfile.readlines()) # Display all lines in array
+print(readfile.readlines()[1]) # Display the second line
+
+#readlines in for loop
+
+for line in readfile.readlines() :
+    print(line)
+
+readfile.close()
+
+#Write file
+
+writefile=open("readfile.txt","w")
+writefile.write("\nNewly added line by a - append ")
+writefile.close()
+
+writefile=open("writefile.py","w")
+writefile.write("print('Created new py file using w')")
+writefile.close()
+
+writefile=open("writefile.py","w")
+writefile.write("print('overwrited the content of the file')")
+writefile.close()
+
+
+#Modules and Pip
+import DemoModule
+print(DemoModule.roll_dice(5))
+
+#Pip , to load external package or module
+
+''' 
+    pip install pandas
+    pip uninstall pandas
+'''
+
+
+#Class and Object
+
+from Student import Student
+
+student1=Student("Rachel","Arts",9.9,False)
+student2=Student("Monica","Displine",10,False)
+print(student1.name)
+print(student1.gpa)
+print(student2.name)
+
+
+
+
+
+
+
